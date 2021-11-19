@@ -1,11 +1,14 @@
 {
-  "expo": {
-    "name": "connectApp",
-    "slug": "connectApp",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "connectApp"
+    "expo": {
+        "name": "connectApp",
+        "slug": "connectApp",
+        "version": "1.0.0",
+        // "splash": {
+        //     "image": "./assets/Splashscreen.png",
+        //     "backgroundColor": "#fff",
+        //     "resizeMode": "contain"
+        // },
+        "assetBundlePatterns": ["**/*"]
+    },
+    "name": "connectApp"
 }
