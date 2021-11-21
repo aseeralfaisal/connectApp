@@ -3,11 +3,11 @@
         "name": "connectApp",
         "slug": "connectApp",
         "version": "1.0.0",
-        // "splash": {
-        //     "image": "./assets/Splashscreen.png",
-        //     "backgroundColor": "#fff",
-        //     "resizeMode": "contain"
-        // },
+        "splash": {
+            "image": "./assets/Splashscreen.png",
+            "backgroundColor": "#fff",
+            "resizeMode": "contain"
+        },
         "assetBundlePatterns": ["**/*"]
     },
     "name": "connectApp"

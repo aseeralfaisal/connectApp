@@ -3,7 +3,7 @@ import React from 'react'
 import { TextInput, Text, View, TouchableOpacity, FlatList, Image, ScrollView, LogBox } from 'react-native'
 import styles from './styles/ChatStyles'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { db } from './firebase'
+import { db } from './backened/Firebase'
 import { collection, getDocs, onSnapshot, doc, orderBy } from 'firebase/firestore'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCoffee, faUserCircle } from '@fortawesome/free-solid-svg-icons';
