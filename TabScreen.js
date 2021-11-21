@@ -30,7 +30,7 @@ export default function TabScreen({ navigation }) {
             tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
-                source={require('./assets/Home.png')}
+                source={require('./assets/icons/Home.png')}
                 style={{
                   height: 30,
                   width: 30,
@@ -50,7 +50,7 @@ export default function TabScreen({ navigation }) {
             tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
-                source={require('./assets/DataTransfer.png')}
+                source={require('./assets/icons/DataTransfer.png')}
                 style={{
                   height: 30,
                   width: 30,
@@ -70,7 +70,7 @@ export default function TabScreen({ navigation }) {
             tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
-                source={require('./assets/Services.png')}
+                source={require('./assets/icons/Services.png')}
                 style={{
                   height: 30,
                   width: 30,
@@ -90,7 +90,7 @@ export default function TabScreen({ navigation }) {
             tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
-                source={require('./assets/Chat.png')}
+                source={require('./assets/icons/Chat.png')}
                 style={{
                   height: 30,
                   width: 30,
@@ -110,7 +110,7 @@ export default function TabScreen({ navigation }) {
             tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
-                source={require('./assets/More.png')}
+                source={require('./assets/icons/More.png')}
                 style={{
                   height: 30,
                   width: 30,

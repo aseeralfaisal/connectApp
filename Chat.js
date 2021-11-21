@@ -1,10 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { TextInput, Text, View, TouchableOpacity, FlatList, Image, ScrollView, LogBox } from 'react-native'
-import { Picker } from '@react-native-picker/picker';
-import { createStackNavigator } from '@react-navigation/stack'
-import styles from './ChatStyles'
-import axios from 'axios'
+import styles from './styles/ChatStyles'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { db } from './firebase'
 import { collection, getDocs, onSnapshot, doc, orderBy } from 'firebase/firestore'
@@ -39,12 +36,14 @@ export default function Chat({ navigation }) {
     <View style={styles.container}>
       <View style={styles.chatHeader}>
         <Text style={styles.title}>Chat</Text>
-        <Image source={require('./assets/Plus.png')} style={{ height: 35, width: 35 }} />
+        <TouchableOpacity>
+          <Image source={require('./assets/icons/Plus.png')} style={{ height: 35, width: 35 }} />
+        </TouchableOpacity>
       </View>
       <View style={{ display: 'flex', backgroundColor: '#fff', height: '100%', borderRadius: 50, }}>
         <FlatList style={{ marginTop: 20 }} data={userList} keyExtractor={(item, idx) => idx} renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity style={{ alignItems: 'flex-start', marginLeft: 20, marginVertical: 7, }}
+            <TouchableOpacity style={{ alignItems: 'flex-start', marginLeft: 20, marginVertical: 10, }}
               onPress={() => navigation.navigate('InChat', {
                 user: item.user
               })}>
@@ -57,7 +56,6 @@ export default function Chat({ navigation }) {
             </TouchableOpacity>
           )
         }} />
-        {/* <TextInput placeholder="text" onChangeText={(text) => setMsgs(text)} /> */}
       </View>
       <StatusBar style='auto' />
     </View>

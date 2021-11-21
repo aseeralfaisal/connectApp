@@ -1,6 +1,6 @@
-import cc1 from '../assets/cc1.png'
-import cc2 from '../assets/cc2.png'
-import cc3 from '../assets/cc3.png'
+import cc1 from '../assets/icons/cc1.png'
+import cc2 from '../assets/icons/cc2.png'
+import cc3 from '../assets/icons/cc3.png'
 
 let startupTitleArrays = ['Save Money', 'Check your wallet', 'Have access anywhere!']
 let startupTextArrays = [

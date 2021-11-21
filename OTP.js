@@ -3,7 +3,7 @@ import React from 'react'
 import { TextInput, Text, View, TouchableOpacity, Modal, KeyboardAvoidingView } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { createStackNavigator } from '@react-navigation/stack'
-import styles from './OTPStyles'
+import styles from './styles/OTPStyles'
 import axios from 'axios'
 
 const Stack = createStackNavigator()

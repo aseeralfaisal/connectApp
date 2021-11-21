@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { TextInput, Text, View, TouchableOpacity, FlatList, Image, LogBox, Keyboard } from 'react-native'
-import styles from './InChatStyles'
+import styles from './styles/InChatStyles'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { db } from './firebase'
 import { collection, serverTimestamp, onSnapshot, doc, addDoc, orderBy, query } from 'firebase/firestore'
@@ -73,14 +73,14 @@ export default function InChat({ route, navigation }) {
     <View style={styles.container}>
       <View style={styles.InChatHeader}>
         <TouchableOpacity style={{ marginHorizontal: 80 }} onPress={() => navigation.goBack()}>
-          <Image source={require('./assets/LeftArrow.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+          <Image source={require('./assets/icons/LeftArrow.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
         </TouchableOpacity>
         <View style={{ flexDirection: 'row' }}>
           <FontAwesomeIcon icon={faUserCircle} size={26} style={{ marginHorizontal: 10 }} />
           <Text style={styles.userNameTitle}>{route.params.user}</Text>
         </View>
         <View style={{ marginHorizontal: 80 }}>
-          <Image source={require('./assets/MenuVertical.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+          <Image source={require('./assets/icons/MenuVertical.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
         </View>
       </View>
 
@@ -105,7 +105,7 @@ export default function InChat({ route, navigation }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', zIndex: 5 }}>
           <TextInput style={styles.msgInput} placeholder="Type your message..." value={msgs} onChangeText={(text) => setMsgs(text)} onSubmitEditing={() => sendMsg()} />
           <TouchableOpacity style={styles.payBg}>
-            <Image source={require('./assets/Pay.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+            <Image source={require('./assets/icons/Pay.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
           </TouchableOpacity>
         </View>
       </View>
