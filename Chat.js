@@ -1,35 +1,39 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { TextInput, Text, View, TouchableOpacity, Button, Image } from 'react-native'
+import { TextInput, Text, View, TouchableOpacity, FlatList, Image, ScrollView, LogBox } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { createStackNavigator } from '@react-navigation/stack'
 import styles from './ChatStyles'
 import axios from 'axios'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
-import { collection, addDoc, doc, onSnapshot, getDocs } from "firebase/firestore"
 import { db } from './firebase'
+import { collection, getDocs, onSnapshot, doc, orderBy } from 'firebase/firestore'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCoffee, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Chat({ navigation }) {
 
   const [msgs, setMsgs] = React.useState('')
+  const [currentUser, setCurrentUser] = React.useState('aseer')
+  const [userID, setUserID] = React.useState('')
+  const [userList, setUserList] = React.useState([])
+  const [readMsg, setReadMsgs] = React.useState([])
 
-  const sendMsg = async () => {
-    const msg = await addDoc(collection(db, 'chats'), {
-      msgs: msgs
+  const getUserList = () => {
+    onSnapshot(collection(db, "users"), orderBy("user", "desc"), (snap) => {
+      setUserList(snap.docs.map(doc => doc.data()))
     })
   }
-
   React.useEffect(() => {
-    (async () => {
-      const unsub = collection(db, "chats")
-      const items = await getDocs(unsub)
-      items.docs.map(item => {
-        console.log(item.data().msgs)
-      })
-    })()
-  })
+    getUserList()
+    return () => {
+      getUserList()
+    }
+  }, [])
+  LogBox.ignoreLogs(['Setting a timer for a long period of time', 'Can\'t perform a React state update on an unmounted component'])
+
 
   return (
     <View style={styles.container}>
@@ -37,8 +41,23 @@ export default function Chat({ navigation }) {
         <Text style={styles.title}>Chat</Text>
         <Image source={require('./assets/Plus.png')} style={{ height: 35, width: 35 }} />
       </View>
-      <View style={styles.whitepart}>
-        <TextInput placeholder="text" onChangeText={(text) => setMsgs(text)} onSubmitEditing={sendMsg} />
+      <View style={{ display: 'flex', backgroundColor: '#fff', height: '100%', borderRadius: 50, }}>
+        <FlatList style={{ marginTop: 20 }} data={userList} keyExtractor={(item, idx) => idx} renderItem={({ item, index }) => {
+          return (
+            <TouchableOpacity style={{ alignItems: 'flex-start', marginLeft: 20, marginVertical: 7, }}
+              onPress={() => navigation.navigate('InChat', {
+                user: item.user
+              })}>
+              <View style={{ display: item.user !== currentUser ? 'flex' : 'none', flexDirection: 'row', alignItems: 'center' }}>
+                <FontAwesomeIcon icon={faUserCircle} size={36} style={{ marginHorizontal: 15 }} />
+                <Text style={styles.userNames} >
+                  {item.user}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )
+        }} />
+        {/* <TextInput placeholder="text" onChangeText={(text) => setMsgs(text)} /> */}
       </View>
       <StatusBar style='auto' />
     </View>

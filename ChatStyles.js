@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export default styles = StyleSheet.create({
   container: {
     backgroundColor: '#f6f6f6',
-    flex: 1,
+    // flex: 1,
   },
   chatHeader: {
     marginVertical: 30,
@@ -21,6 +21,12 @@ export default styles = StyleSheet.create({
   boldTitle: {
     fontFamily: 'Montserrat-ExtraBold',
     fontSize: 40
+  },
+  userNames: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 16,
+    textAlign: 'left',
+    textTransform: 'capitalize'
   },
   text: {
     fontFamily: 'Montserrat-SemiBold',
