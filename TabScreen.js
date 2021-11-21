@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, Image } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Home from './Home';
 import ChatStack from './ChatStack';
+import styles from './styles/TabScreenStyles'
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function TabScreen({ navigation }) {
 
@@ -12,12 +14,17 @@ export default function TabScreen({ navigation }) {
   return (
     <>
       <Tab.Navigator
+        activeColor="#00AEEF"
+        inactiveColor="#000"
+        shifting={false}
         barStyle={{
           backgroundColor: '#fff',
-          shadowOffset: { width: 0, height: 2, },
-          shadowColor: '#1d1d1d',
-          shadowOpacity: 1,
-          shadowRadius: 7,
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          elevation: 0,
+          ...styles.shadow
         }}
       >
         <Tab.Screen
@@ -26,14 +33,12 @@ export default function TabScreen({ navigation }) {
           options={{
             tabBarLabel: 'Home',
             headerShown: false,
-            tabBarActiveTintColor: '#0f5dd1',
-            tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
                 source={require('./assets/icons/Home.png')}
                 style={{
-                  height: 30,
-                  width: 30,
+                  height: 26,
+                  width: 26,
                   tintColor: color
                 }}
               />
@@ -46,14 +51,12 @@ export default function TabScreen({ navigation }) {
           options={{
             tabBarLabel: 'Transfer',
             headerShown: false,
-            tabBarActiveTintColor: '#00AEEF',
-            tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
                 source={require('./assets/icons/DataTransfer.png')}
                 style={{
-                  height: 30,
-                  width: 30,
+                  height: 26,
+                  width: 26,
                   tintColor: color
                 }}
               />
@@ -64,16 +67,14 @@ export default function TabScreen({ navigation }) {
           name='Services'
           component={Home}
           options={{
-            tabBarLabel: 'Transfer',
+            tabBarLabel: 'Services',
             headerShown: false,
-            tabBarActiveTintColor: '#00AEEF',
-            tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
                 source={require('./assets/icons/Services.png')}
                 style={{
-                  height: 30,
-                  width: 30,
+                  height: 26,
+                  width: 26,
                   tintColor: color
                 }}
               />
@@ -86,14 +87,12 @@ export default function TabScreen({ navigation }) {
           options={{
             tabBarLabel: 'Chat',
             headerShown: false,
-            tabBarActiveTintColor: '#00AEEF',
-            tabBarInactiveTintColor: '#000',
             tabBarIcon: ({ color }) => (
               <Image
                 source={require('./assets/icons/Chat.png')}
                 style={{
-                  height: 30,
-                  width: 30,
+                  height: 26,
+                  width: 26,
                   tintColor: color
                 }}
               />
@@ -112,8 +111,8 @@ export default function TabScreen({ navigation }) {
               <Image
                 source={require('./assets/icons/More.png')}
                 style={{
-                  height: 30,
-                  width: 30,
+                  height: 26,
+                  width: 26,
                   tintColor: color
                 }}
               />

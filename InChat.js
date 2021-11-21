@@ -17,6 +17,7 @@ export default function InChat({ route, navigation }) {
   const [userID, setUserID] = React.useState('')
   const [userList, setUserList] = React.useState([])
   const [readMsg, setReadMsgs] = React.useState([])
+  const [keyboardStatus, setKeyboardStatus] = React.useState(false);
 
   const getMsgs = () => {
     try {
@@ -54,7 +55,6 @@ export default function InChat({ route, navigation }) {
     }
   }
 
-  const [keyboardStatus, setKeyboardStatus] = React.useState(false);
   React.useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardStatus(true);
@@ -84,7 +84,7 @@ export default function InChat({ route, navigation }) {
         </View>
       </View>
 
-      <FlatList style={{ marginBottom: 100 }} data={readMsg} keyExtractor={(item, idx) => idx} inverted={true} renderItem={({ item, index }) => {
+      <FlatList style={{ marginBottom: 120 }} data={readMsg} keyExtractor={(item, idx) => idx} inverted={true} renderItem={({ item, index }) => {
         return (
           <View style={{
             alignItems: item.msgBy == currentUser ? 'flex-end' : 'flex-start',
@@ -101,8 +101,8 @@ export default function InChat({ route, navigation }) {
         )
       }} />
 
-      <View style={{ position: 'absolute', top: keyboardStatus ? '80%' : '90%', right: 20, left: 10, backgroundColor: '#fff', bottom: 0 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', zIndex: 5 }}>
+      <View style={{ position: 'absolute', top: keyboardStatus ? '86%' : '83%', right: 20, left: 10, backgroundColor: '#fff', bottom: 0 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', zIndex: 1 }}>
           <TextInput style={styles.msgInput} placeholder="Type your message..." value={msgs} onChangeText={(text) => setMsgs(text)} onSubmitEditing={() => sendMsg()} />
           <TouchableOpacity style={styles.payBg}>
             <Image source={require('./assets/icons/Pay.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />

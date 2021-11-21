@@ -16,7 +16,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 60
+    marginVertical: 40
   },
   msgInput: {
     backgroundColor: '#f6f6f6',
