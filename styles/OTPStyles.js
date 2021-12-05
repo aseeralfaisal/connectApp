@@ -39,7 +39,7 @@ export default styles = StyleSheet.create({
     fontSize: 16,
   },
   btnContainer: {
-    marginTop: 360,
+    marginTop: 300,
   },
   userOptions: {
     backgroundColor: '#f0f0f0',

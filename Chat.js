@@ -4,16 +4,16 @@ import { TextInput, Text, View, TouchableOpacity, FlatList, Image, ScrollView, L
 import styles from './styles/ChatStyles'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { db } from './backened/Firebase'
-import { collection, getDocs, onSnapshot, doc, orderBy } from 'firebase/firestore'
+import { collection, getDocs, query, onSnapshot, doc, orderBy } from 'firebase/firestore'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCoffee, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCoffee, faStop, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Chat({ navigation }) {
 
   const [msgs, setMsgs] = React.useState('')
-  const [currentUser, setCurrentUser] = React.useState('aseer')
+  const [currentUser, setCurrentUser] = React.useState('+8801746439316')
   const [userID, setUserID] = React.useState('')
   const [userList, setUserList] = React.useState([])
   const [readMsg, setReadMsgs] = React.useState([])
@@ -31,7 +31,6 @@ export default function Chat({ navigation }) {
   }, [])
   LogBox.ignoreLogs(['Setting a timer for a long period of time', 'Can\'t perform a React state update on an unmounted component'])
 
-
   return (
     <View style={styles.container}>
       <View style={styles.chatHeader}>
@@ -41,9 +40,9 @@ export default function Chat({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={{ display: 'flex', backgroundColor: '#fff', height: '100%', borderRadius: 50, }}>
-        <FlatList style={{ marginTop: 20 }} data={userList} keyExtractor={(item, idx) => idx} renderItem={({ item, index }) => {
+        <FlatList style={{ marginTop: 15 }} data={userList} keyExtractor={(item, idx) => idx} renderItem={({ item, index }) => {
           return (
-            <TouchableOpacity style={{ alignItems: 'flex-start', marginLeft: 20, marginVertical: 10, }}
+            <TouchableOpacity style={{ alignItems: 'flex-start', marginLeft: 20, marginVertical: 5, }}
               onPress={() => navigation.navigate('InChat', {
                 user: item.user
               })}>
@@ -52,6 +51,10 @@ export default function Chat({ navigation }) {
                 <Text style={styles.userNames} >
                   {item.user}
                 </Text>
+                <View style={{ marginHorizontal: 120, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={[styles.text, { fontSize: 10,  }]}>Now</Text>
+                  <FontAwesomeIcon icon={faCircle} size={12} style={{ color: '#00AEEF' }} />
+                </View>
               </View>
             </TouchableOpacity>
           )

@@ -5,6 +5,8 @@ import { Picker } from '@react-native-picker/picker';
 import { createStackNavigator } from '@react-navigation/stack'
 import styles from './styles/OTPStyles'
 import axios from 'axios'
+import { db } from './backened/Firebase'
+import { collection, addDoc, query, onSnapshot, doc, orderBy } from 'firebase/firestore'
 
 const Stack = createStackNavigator()
 
@@ -19,8 +21,9 @@ export default function OTP({ navigation }) {
   const pickerRef = React.useRef();
   const [popupVisible, setPopupVisible] = React.useState(false);
   const [verifyCode, setVerifyCode] = React.useState('')
+  const [go, setGo] = React.useState(false)
 
-  const link = 'http://192.168.162.222:3001'
+  const link = 'http://192.168.100.4:3001'
 
   const codeNumFunc = (text) => {
     setCodeNum(text)
@@ -30,27 +33,45 @@ export default function OTP({ navigation }) {
   }
   const phnNumFunc = (text) => {
     setPhnNumber(text)
-    if (text.length == 0) {
+    if (text.length <= 0) {
       codeRef.current.focus()
     }
   }
-  function open() {
-    pickerRef.current.focus();
-  }
+  function open() { pickerRef.current.focus() }
 
-  function close() {
-    pickerRef.current.blur();
-  }
+  function close() { pickerRef.current.blur() }
 
   const codeVerification = async () => {
     if (phnNumber == '') {
+      setPopupVisible(false)
       alert('Please put a phone number')
       return null
+    } else {
+      setPopupVisible(true)
     }
-    const number = { phnNumber }
-    const apiTest = await axios.post(`${link}/checkverify`, number)
-    console.log(apiTest.data)
+    if (phnNumber.length >= 11) {
+      setPhnNumber("+88" + phnNumber)
+      setGo(true)
+    }
   }
+
+  React.useEffect(() => {
+    if (go) {
+      (async () => {
+        const number = { phnNumber }
+        const apiTest = await axios.post(`${link}/checkverify`, number)
+        console.log(apiTest.data)
+      })()
+    }
+  }, [go])
+
+  const registerUser = async () => {
+    const addtoDB = await addDoc(collection(db, "users"), {
+      user: phnNumber
+    })
+    // console.log(addtoDB)
+  }
+
   const checkToken = async () => {
     if (verifyCode == '') {
       return null
@@ -58,14 +79,17 @@ export default function OTP({ navigation }) {
     const code = { verifyCode, phnNumber }
     const apiTest = await axios.post(`${link}/checktoken`, code)
     if (apiTest.data == 'approved') {
-      navigation.navigate('Home')
+      // registerUser()
+      navigation.navigate('TabScreen', {
+        currentUser: phnNumber
+      })
     } else {
       alert('Error Occured! Please try again.')
     }
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <View>
         <Text style={styles.title}>connect.</Text>
         <Text style={[styles.text, styles.boldTitle]}>Welcome</Text>
@@ -105,10 +129,10 @@ export default function OTP({ navigation }) {
       <Modal transparent={true} visible={popupVisible} animationType="slide" onRequestClose={() => setPopupVisible(false)}>
         <View style={styles.popup}>
           <Text style={[styles.text, { fontSize: 16, textAlign: 'center' }]}>Verifying phone number</Text>
-          <Text style={[styles.text, { color: '#878787', fontSize: 16, textAlign: 'center', width: '70%' }]}>{`Waiting to automatically detect an SMS sent to ${phnNumber}. Wrong Number?`}</Text>
+          <Text style={[styles.text, { color: '#878787', fontSize: 16, textAlign: 'center', width: '85%' }]}>{`Verification code sent to ${phnNumber}. Wrong Number?`}</Text>
           <View style={styles.whitepart}>
             <View style={{ flexDirection: 'row' }}>
-              <TextInput style={styles.codeInput} type="text" maxLength={6} onChangeText={(text) => {
+              <TextInput style={styles.codeInput} value={verifyCode} type="text" maxLength={6} onChangeText={(text) => {
                 setVerifyCode(text)
                 if (text == '' || text.length <= 0) setPopupVisible(false)
               }} onSubmitEditing={checkToken} />
@@ -117,11 +141,7 @@ export default function OTP({ navigation }) {
         </View>
       </Modal>
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btn} onPress={() => {
-          setPopupVisible(true)
-          codeVerification()
-        }
-        }>
+        <TouchableOpacity style={styles.btn} onPress={() => codeVerification()}>
           <Text style={styles.btnText}>Get Started</Text>
         </TouchableOpacity>
       </View>

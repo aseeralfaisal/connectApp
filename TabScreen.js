@@ -5,12 +5,14 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Home from './Home';
 import ChatStack from './ChatStack';
 import styles from './styles/TabScreenStyles'
+import { useSelector } from 'react-redux'
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function TabScreen({ navigation }) {
 
-
+  const select = useSelector((state) => state.name)
+  console.log(select)
   return (
     <>
       <Tab.Navigator

@@ -7,13 +7,13 @@ import InChat from './InChat'
 
 const Stack = createStackNavigator()
 
-export default function ChatStack({ navigation }) {
+export default function ChatStack({ navigation, currentUser }) {
+  
   return (
     <View style={{ flex: 1, backgroundColor: '#fafafa' }}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          animationEnabled: false,
         }}
         >
         <Stack.Screen name='Chat' component={Chat} />

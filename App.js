@@ -9,11 +9,14 @@ import StartupStack from './StartupStack'
 import OTP from './OTP'
 import Home from './Home'
 import TabScreen from './TabScreen'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const Stack = createStackNavigator()
 
 export default function App() {
   const [ready, isReady] = React.useState(false)
+
   let [fontsLoaded] = useFonts({
     Comfortaa_Regular: require('./assets/fonts/Comfortaa-Regular.ttf'),
     Comfortaa_Medium: require('./assets/fonts/Comfortaa-Medium.ttf'),
@@ -29,18 +32,20 @@ export default function App() {
     return <AppLoading />
   } else {
     return (
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-          // initialRouteName="TabScreen"
-        >
-          {/* <Stack.Screen name='StartupStack' component={StartupStack} /> */}
-          {/* <Stack.Screen name='OTP' component={OTP} /> */}
-          <Stack.Screen name='TabScreen' component={TabScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+            initialRouteName="TabScreen"
+          >
+            <Stack.Screen name='StartupStack' component={StartupStack} />
+            <Stack.Screen name='OTP' component={OTP} />
+            <Stack.Screen name='TabScreen' component={TabScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     )
   }
 }

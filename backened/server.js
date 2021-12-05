@@ -7,12 +7,16 @@ const client = require('twilio')(accountSid, authToken);
 
 const app = express()
 
-const port = process.env.PORT
+const port = process.env.PORT || 3001
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 let SID, phnNumber
+
+app.get("/", (req, res) => {
+  res.send('Hola')
+})
 
 app.post('/checkverify', async (req, res) => {
   phnNumber = req.body.phnNumber

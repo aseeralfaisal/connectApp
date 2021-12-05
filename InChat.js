@@ -4,7 +4,7 @@ import { TextInput, Text, View, TouchableOpacity, FlatList, Image, LogBox, Keybo
 import styles from './styles/InChatStyles'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { db } from './backened/Firebase'
-import { collection, serverTimestamp, onSnapshot, doc, addDoc, orderBy, query } from 'firebase/firestore'
+import { collection, serverTimestamp, onSnapshot, getDocs, doc, addDoc, orderBy, query } from 'firebase/firestore'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,7 +13,7 @@ const Tab = createMaterialBottomTabNavigator();
 export default function InChat({ route, navigation }) {
 
   const [msgs, setMsgs] = React.useState('')
-  const [currentUser, setCurrentUser] = React.useState('aseer')
+  const [currentUser, setCurrentUser] = React.useState('+8801746439316')
   const [userID, setUserID] = React.useState('')
   const [userList, setUserList] = React.useState([])
   const [readMsg, setReadMsgs] = React.useState([])
@@ -34,6 +34,19 @@ export default function InChat({ route, navigation }) {
     }
   }, [sendMsg])
   LogBox.ignoreLogs(['Setting a timer for a long period of time', 'Can\'t perform a React state update on an unmounted component'])
+
+  React.useEffect(() => {
+    (async () => {
+      const docRef = query(collection(db, "users", `${currentUser}-${route.params.user}`, "chats"), orderBy("timestamp", "asc"))
+      const docs = await getDocs(docRef)
+      const msgs = []
+      msgs.push(docs.docs.map(doc => doc.data()))
+      console.log(msgs.pop())
+      // onSnapshot(collection(db, "users"), orderBy("user", "desc"), (snap) => {
+      //   console.log(snap.docs.map(doc => doc.data().user))
+      // })
+    })()
+  })
 
   const sendMsg = () => {
     try {
@@ -72,19 +85,19 @@ export default function InChat({ route, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.InChatHeader}>
-        <TouchableOpacity style={{ marginHorizontal: 80 }} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={{ marginHorizontal: 40 }} onPress={() => navigation.goBack()}>
           <Image source={require('./assets/icons/LeftArrow.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
         </TouchableOpacity>
         <View style={{ flexDirection: 'row' }}>
-          <FontAwesomeIcon icon={faUserCircle} size={26} style={{ marginHorizontal: 10 }} />
+          <FontAwesomeIcon icon={faUserCircle} size={26} style={{ marginHorizontal: 0 }} />
           <Text style={styles.userNameTitle}>{route.params.user}</Text>
         </View>
-        <View style={{ marginHorizontal: 80 }}>
+        <View style={{ marginHorizontal: 40 }}>
           <Image source={require('./assets/icons/MenuVertical.png')} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
         </View>
       </View>
 
-      <FlatList style={{ marginBottom: 120 }} data={readMsg} keyExtractor={(item, idx) => idx} inverted={true} renderItem={({ item, index }) => {
+      <FlatList style={{ marginBottom: 140 }} data={readMsg} keyExtractor={(item, idx) => idx} inverted={true} renderItem={({ item, index }) => {
         return (
           <View style={{
             alignItems: item.msgBy == currentUser ? 'flex-end' : 'flex-start',
