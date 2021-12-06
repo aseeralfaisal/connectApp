@@ -7,6 +7,7 @@ import styles from './styles/OTPStyles'
 import axios from 'axios'
 import { db } from './backened/Firebase'
 import { collection, addDoc, query, onSnapshot, doc, orderBy } from 'firebase/firestore'
+import { useDispatch } from 'react-redux';
 
 const Stack = createStackNavigator()
 

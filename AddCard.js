@@ -7,16 +7,16 @@ import styles from './styles/HomeStyles'
 import axios from 'axios'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function Home({ navigation }) {
+export default function AddCard({ navigation }) {
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>My Cards</Text>
+        <Text style={styles.title}>Add Card</Text>
         <FontAwesomeIcon icon={faUserCircle} size={32} style={{ marginHorizontal: 15 }} />
       </View>
       <View>

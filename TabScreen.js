@@ -6,13 +6,12 @@ import Home from './Home';
 import ChatStack from './ChatStack';
 import styles from './styles/TabScreenStyles'
 import { useSelector } from 'react-redux'
+import HomeStack from './HomeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function TabScreen({ navigation }) {
 
-  const select = useSelector((state) => state.name)
-  console.log(select)
   return (
     <>
       <Tab.Navigator
@@ -30,8 +29,8 @@ export default function TabScreen({ navigation }) {
         }}
       >
         <Tab.Screen
-          name='Home'
-          component={Home}
+          name='HomeStack'
+          component={HomeStack}
           options={{
             tabBarLabel: 'Home',
             headerShown: false,

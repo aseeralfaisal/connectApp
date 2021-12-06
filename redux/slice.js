@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 export const counterSlice = createSlice({
   name: 'users',
   initialState: {
-    user: 'aseer'
+    user: ''
   },
 
   reducers: {
-    // pushTodo: (state, action) => {
-    //   state.todosList = [...state.todosList, action.payload]
-    // }
+    setUser: (state, action) => {
+      state.user = action.payload
+    }
   },
 })
 
