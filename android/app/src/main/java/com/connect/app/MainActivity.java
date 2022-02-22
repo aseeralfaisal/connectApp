@@ -1,4 +1,4 @@
-package com.connectapp;
+package com.connect.app;
 
 import android.os.Bundle;
 

@@ -1,14 +1,19 @@
 {
-    "expo": {
-        "name": "connectApp",
-        "slug": "connectApp",
-        "version": "1.0.0",
-        "splash": {
-            "image": "./assets/Splashscreen.png",
-            "backgroundColor": "#fff",
-            "resizeMode": "contain"
-        },
-        "assetBundlePatterns": ["**/*"]
+  "expo": {
+    "name": "connectApp",
+    "slug": "connectApp",
+    "version": "1.0.0",
+    "splash": {
+      "image": "./assets/Splashscreen.png",
+      "backgroundColor": "#fff",
+      "resizeMode": "contain"
     },
-    "name": "connectApp"
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.connect.app"
+    }
+  },
+  "name": "connectApp"
 }
